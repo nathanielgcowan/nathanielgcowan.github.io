@@ -1,7 +1,7 @@
 ---
 layout: post
 title:      "Flatiron_Blog_CLI"
-date:       2020-08-09 03:04:43 +0000
+date:       2020-08-08 23:04:43 -0400
 permalink:  flatiron_blog_cli
 ---
 
