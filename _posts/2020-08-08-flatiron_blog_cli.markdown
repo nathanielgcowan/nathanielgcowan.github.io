@@ -5,8 +5,9 @@ date:       2020-08-08 23:04:43 -0400
 permalink:  flatiron_blog_cli
 ---
 
-![](https://unsplash.com/photos/XzuJuyYLjmE)
-<span>Photo by <a href="https://unsplash.com/@joshuafuller?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Joshua Fuller</a> on <a href="https://unsplash.com/?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span>
+
+
+
 
 After pondering different ideas about which website I would like to use for my CLI project I settled on Austin Swing Syndicate, a local organization that hosts classes year round.
 
@@ -19,12 +20,12 @@ My program consists primarily of two parts. First, a command-line interface, whi
 I studied the layout and liked what I say so I started planning the layout for my CLI lib folder, which consist the following:
 
 ```
-* Cli.rb
-* Description.rb
-* Parties.rb
-* Scraper.rb
-* Version.rb
-* Environment.rb
+- Cli.rb
+- Description.rb
+- Parties.rb
+- Scraper.rb
+- Version.rb
+- Environment.rb
 ```
 
 After reading the instruction and following the video guide, I made the gem:
