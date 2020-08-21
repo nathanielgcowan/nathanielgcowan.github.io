@@ -64,9 +64,8 @@ require 'colorize'
 
 module AustinSwingSyndicateDanceClasses
   class Error < StandardError; end
-```
-  # Your code goes here...
 end
+```
 
 Once done I ran my code to see if my program was accepting my newly created files, but I was met with the following error:
 
@@ -76,9 +75,9 @@ bash: ./bin.austin-swing_syndicate_dance_classes: No such file or directory
 ```
 
 
-So I run chmod +x on file ./bin/austin-swing_syndicate_dance_classes so that it would properly executed. Success!
+So I run chmod +x on file **./bin/austin-swing_syndicate_dance_classes** so that it would properly executed. Success!
 
-Then within my gemspec file I  required the use of pry, Nokogiri, and open-uri, so my gem would work properly.
+Then within my **gemspec** file I  required the use of pry, Nokogiri, and open-uri, so my gem would work properly.
 
 ```
   spec.add_development_dependency "bundler", "~> 2.0"
@@ -87,38 +86,51 @@ Then within my gemspec file I  required the use of pry, Nokogiri, and open-uri, 
   spec.add_dependency "nokogiri"
 ```
 
-Then I ran bundle install and my application was set up properly. It was now time to go ahead and start fleshing out the gem. I started first with my cli.rb file.
+Then I ran bundle install and my application was set up properly. It was now time to go ahead and start fleshing out the gem. I started first with my **cli.rb** file.
 
 **Cli.rb**
-This file is the meat and potatoes of the program. This is the file that's display the program’s logic and contains that code that takes the user input.
+
+This file is the meat and potatoes of the program. This is the file that displays the program’s logic and contains that code that takes the user input.
 
 The following are my methods:
 /bullet the method
 /explain what it does
 * **Call**
+* 
 * Puts welcome message
 * Calls methods get_party, list_party, and show_answer
 * 
+* 
 * **Get_party**
+* 
 * Establishes instance variable @parties set to the file AustinSwingSyndicateDanceClasses::Party.all
+* 
 * **List_party**
+* 
 * Puts a message with instructions.
 * Makes the my_statements array
 * Applies map to @parties
 * Push the name of a party into the my_statements array
 * Sorts the my_statements array
+* 
 * **Show_answer**
+* 
 * Takes a user’s input and makes it an integer.
 * Defines a valid input.
 * Show the correct answer once received valid input.
 * If invalid input, display error message then ask to try again.
+* 
 * **Valid_input**
+* 
 * Sets a valid input as an input integer less than the length of data and the integer is greater than zero.
+* 
 * **Give_info_for**
+* 
 * This method is the correct choice answer.
 * Puts “Awesome choice!”
 * Give the party description and date.
-* 
+
+
 ```
 class AustinSwingSyndicateDanceClasses::CLI
   
@@ -193,15 +205,24 @@ end
 This file sets the arguments for the descriptions of my program.
 
 The methods are as follows:
+
 * **Initialize**
+* 
 * Initializes arguments name and party
 * Calls add_to_party and save method
+* 
 * **Self.all**
+* 
 * Defines the all class variable.(That is set to an empty array)
+* 
 * **Add_to_party**
+* 
 * Pushes the new self description into the party instance variable unless it would be a duplicate.
+* 
 * **Save**
+* 
 * Pushes the given self in the all class variable.
+* 
 ```
 ```
 
@@ -234,17 +255,18 @@ end
 
 **
 Party.rb**
+
 This file sets the arguments and array for the individual classes.
 
 The methods are as follows:
-Initialize
-Sets the instance variables name, description, and date.
-Calls the save method
-Self.all
-Class variables take in the scrapers if the all class variable is empty.
-Returns the all class variables(set at the top of the code to an empty array)
-Save
-Pushes self into the all class variable.
+* **Initialize**
+* Sets the instance variables name, description, and date.
+* Calls the save method
+* **Self.all**
+* Class variables take in the scrapers if the all class variable is empty.
+* Returns the all class variables(set at the top of the code to an empty array)
+* **Save**
+* Pushes self into the all class variable.
 
 ```
 class AustinSwingSyndicateDanceClasses::Party
@@ -275,10 +297,11 @@ end
 This file is the scraper which is what takes the data from the webpage.
 
 It’s methods are as follows:
-Self.scrapre_parties
-Uses Nokogiri to parse the uri.
-Takes the css for “div.slide-content”.
-Uses each to retrieve the text for name, description, and date.
+
+* **Self.scrapre_parties**
+* Uses Nokogiri to parse the uri.
+* Takes the css for “div.slide-content”.
+* Uses each to retrieve the text for name, description, and date.
 
 ```
 class AustinSwingSyndicateDanceClasses::Scraper
@@ -296,6 +319,7 @@ end
 ```
 
 **Verson.rb**
+
 This file defines the version of the gem.
 
 ```
@@ -322,11 +346,11 @@ require 'colorize'
 
 module AustinSwingSyndicateDanceClasses
   class Error < StandardError; end
-```
-  # Your code goes here...
 end
+```
 
 **Austin-swing_syndicate_dance_classes.gemspec**
+
 I then wrote my gemspec files to attribute my RubyGem.
 If you want to check out my README.md, feel free to use the link to my code on GitHub below.
 
