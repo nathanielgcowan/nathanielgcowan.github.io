@@ -6,9 +6,6 @@ permalink:  flatiron_blog_cli
 ---
 
 
-
-
-
 After pondering different ideas about which website I would like to use for my CLI project I settled on Austin Swing Syndicate, a local organization that hosts classes year round.
 
 My objective was to help people pick which classes to go to by providing the description and date upon input of a chosen class from a list of data.
@@ -271,7 +268,6 @@ end
 
 **Scraper.rb**
 This file is the scraper which is what takes the data from the webpage.
-
 It’s methods are as follows:
 
 * **Self.scrapre_parties**
