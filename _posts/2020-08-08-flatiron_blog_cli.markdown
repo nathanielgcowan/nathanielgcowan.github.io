@@ -1,24 +1,365 @@
 ---
 layout: post
-title:      "Flatiron_Blog_CLI"
+title:      "CLI Project Blog"
 date:       2020-08-08 23:04:43 -0400
 permalink:  flatiron_blog_cli
 ---
 
+![](https://unsplash.com/photos/XzuJuyYLjmE)
 
-This is a Blog about my first project here with Flatiron. I created a command-line interface that scrapes data from a website and gives the returned values to the user. This was a great learning experience for me and I know what I have done this last week has given me skills that I can use throughout the rest of my career. Throughout this article I'm going to go over what my project does and what I would do differently if I had to make this project again.
+Photo by Joshua Fuller on Unsplash
 
- I built my project around the website Austin Swing Syndicate. This organization hosts different parties and afternoon gatherings for locals to meet up and swing dance. The goal of my scraper was to take the different events hosted by Austin Swing Syndicate and list them for the viewer. So that once the viewer will click on a specific  party they wouldn't be greeted with a full description of the party as well as the date of that party.
+After pondering different ideas about which website I would like to use for my CLI project I settled on Austin Swing Syndicate, a local organization that hosts classes year round.
 
- This was proved easier said than done. In fact starting this project was like drinking water from a fire hose. It was difficult to take everything that I've learned So far and implement all at once. But after breaking down code into small pieces I was able to form a plan of attack that helped me get through this project.
+My objective was to help people pick which classes to go to by providing the description and date upon input of a chosen class from a list of data.
 
-  Upon Initialization  I wanted my viewer to be welcomed to the command line interface.  This was accomplished through the call method. Which I defined first is the program. The next step I took to finish my project was declaring the environment file. here I put the required_ function to work and made sure that all the files within my program were connected. Once this was done I began building out my command line interface.
+The website’s events page neatly list each of the different classes a guest can pick from. Further down you can find descriptions and dates for each class.
 
-The CLI can be broken down into three sections.  Firstly, the program must get the information from the website Second, the program must list that information. and third the program must retrieve the answer provided the input made by the user. This was possible through the use of instance variables. not the instance variables for the sole reason in completing code, put that these tools were a great way to bring data from one  file and use it in code for another..
+My program consists primarily of two parts. First, a command-line interface, which allows the user to interact with the computer by typing commands. Second, a scraper of the Austin Swing Syndicate events page.
 
-As my data on my command line interface setup I went on to the Fine two different classes, the party and description class. These two classes take on arguments that my program would need in order to go and accomplish the desired task. This is also where the instance variables as one stated earlier would all basically live. The result of writing a program in this way was that everything in the program would “talk” to one another.
+I studied the layout and liked what I say so I started planning the layout for my CLI lib folder, which consist the following:
 
-Once this was completed I worked on my scraper. Up to this point I have been using fake data in my CLI’s listed array to get my program to work. This proved helpful because I was able to build my scraper and avoid syntax errors until completion. In fact, helpful enough that it was rather easy to get the scraper to work because once the scraper was completed the object's orientation filtered out the information that was required from the get-go.
+```
+* Cli.rb
+* Description.rb
+* Parties.rb
+* Scraper.rb
+* Version.rb
+* Environment.rb
+```
 
-At this point I was a estatic I completed my first project withFlatiron.  My command line interface was able to successfully bring information from Austin Swing Syndicate and display the party  description and date when asked for. Looking back on my project now that I have completed the task I would say if I had to make any changes I would most likely change two things. One, my project would use less code to accomplish the same task, which would streamline the system processing.Second, I would to go further then one level of code down send the application, because I would be able to use that much more data within my program. But overall I'm proud of all that I have accomplished within this project and I am ready to take on more.
+After reading the instruction and following the video guide, I made the gem:
+
+`bundle gem austin_swing_syndicate_dance_classes`
+
+
+This provided me with the base for my bin folder, lib folder, as other needed files for my Ruby gem.
+
+The first change I made was to add my file austin-swing_syndicate_dance_classes to my bin folder, to set up my CLI to display the call method.
+
+```
+#!/usr/bin/env ruby
+
+require_relative '../lib/environment.rb'
+
+AustinSwingSyndicateDanceClasses::CLI.new.call
+```
+
+
+Next I renamed an auto-created field within my lib folder to environment.rb, because I only intend to use this file to configure things for my application.
+
+```
+require_relative "./austin_swing_syndicate_dance_classes/version"
+require_relative "./austin_swing_syndicate_dance_classes/cli"
+require_relative "./austin_swing_syndicate_dance_classes/party"
+require_relative "./austin_swing_syndicate_dance_classes/description"
+require_relative "./austin_swing_syndicate_dance_classes/scraper"
+
+require 'pry'
+require 'nokogiri'
+require 'open-uri'
+require 'colorize'
+
+module AustinSwingSyndicateDanceClasses
+  class Error < StandardError; end
+```
+  # Your code goes here...
+end
+
+Once done I ran my code to see if my program was accepting my newly created files, but I was met with the following error:
+
+```
+bash: ./bin.austin-swing_syndicate_dance_classes: No such file or directory
+[21:32:09] (master) austin_swing_syndicate_dance_classes
+```
+
+
+So I run chmod +x on file ./bin/austin-swing_syndicate_dance_classes so that it would properly executed. Success!
+
+Then within my gemspec file I  required the use of pry, Nokogiri, and open-uri, so my gem would work properly.
+
+```
+  spec.add_development_dependency "bundler", "~> 2.0"
+  spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency "pry"
+  spec.add_dependency "nokogiri"
+```
+
+Then I ran bundle install and my application was set up properly. It was now time to go ahead and start fleshing out the gem. I started first with my cli.rb file.
+
+**Cli.rb**
+This file is the meat and potatoes of the program. This is the file that's display the program’s logic and contains that code that takes the user input.
+
+The following are my methods:
+/bullet the method
+/explain what it does
+* **Call**
+* Puts welcome message
+* Calls methods get_party, list_party, and show_answer
+* 
+* **Get_party**
+* Establishes instance variable @parties set to the file AustinSwingSyndicateDanceClasses::Party.all
+* **List_party**
+* Puts a message with instructions.
+* Makes the my_statements array
+* Applies map to @parties
+* Push the name of a party into the my_statements array
+* Sorts the my_statements array
+* **Show_answer**
+* Takes a user’s input and makes it an integer.
+* Defines a valid input.
+* Show the correct answer once received valid input.
+* If invalid input, display error message then ask to try again.
+* **Valid_input**
+* Sets a valid input as an input integer less than the length of data and the integer is greater than zero.
+* **Give_info_for**
+* This method is the correct choice answer.
+* Puts “Awesome choice!”
+* Give the party description and date.
+* 
+```
+class AustinSwingSyndicateDanceClasses::CLI
+  
+  def call
+    puts "
+   ____                          ___,                         
+  (|   \                        /   |              o          
+   |    |__,   _  _   __  _    |    |          ,_|_    _  _   
+  _|    /  |  / |/ | /   |/    |    |  |   |  / \| |  / |/ |  
+ (/\___/\_/|_/  |  |_\___|__/   \__/\_/ \_/|_/ \/|_|_/  |  |_/
+                                                              
+                                                              
+"
+    puts "Hello and welcome to Austin Swing Syndicate. We encourage others to learn how to swing dance."
+    get_party
+    list_party
+    show_answer
+  end
+  
+  def get_party
+    @parties = AustinSwingSyndicateDanceClasses::Party.all
+  end
+  
+  def get_options
+    
+  end
+  def list_party
+    puts "Here are the available parties. Choose one below to see more information?".blue
+    my_statements = []
+    @parties.map do |party|
+      my_statements << "#{party.name}"
+    end
+    my_statements.sort.each.with_index(1) do |i, index|
+      puts "#{index}. #{i}"
+    end
+  end
+  
+  def show_answer
+    chosen_party = gets.strip.to_i
+    if valid_input(chosen_party, @parties)
+      give_info_for(chosen_party)
+    else
+      puts "ERROR!!! Invalid input, please try again.".red
+      list_party
+      show_answer
+    end
+  end
+  
+  def valid_input(input, data)
+    input.to_i <= data.length && input.to_i > 0
+  end
+  
+  def give_info_for(chosen_party)
+    party = @parties[chosen_party- 1]
+    party.description
+    puts "Awesome choice!Feel free to read more about #{party.name} Would you like to look at another?".green 
+    puts party.description
+    puts party.date
+    puts "Would you like to see another? Yes or No"
+      want_to_see_more = gets.strip
+      if "yes"
+      list_party
+      show_answer
+    end
+  end
+end
+```
+
+
+**Description.rb**
+
+This file sets the arguments for the descriptions of my program.
+
+The methods are as follows:
+* **Initialize**
+* Initializes arguments name and party
+* Calls add_to_party and save method
+* **Self.all**
+* Defines the all class variable.(That is set to an empty array)
+* **Add_to_party**
+* Pushes the new self description into the party instance variable unless it would be a duplicate.
+* **Save**
+* Pushes the given self in the all class variable.
+```
+```
+
+```
+class AustinSwingSyndicateDanceClasses::Description
+  attr_accessor :name, :party
+  @@all =[]
+  
+  def initialize(name, party)
+    @name = name
+    @party = party
+    add_to_party
+    save
+  end
+  
+  def self.all
+    @@all
+  end
+  
+  def add_to_party
+    binding.pry
+    @party.descriptions << self unless @party.descriptions.include?(self)
+  end
+  
+  def save
+    @@all << self
+  end
+end
+```
+
+**
+Party.rb**
+This file sets the arguments and array for the individual classes.
+
+The methods are as follows:
+Initialize
+Sets the instance variables name, description, and date.
+Calls the save method
+Self.all
+Class variables take in the scrapers if the all class variable is empty.
+Returns the all class variables(set at the top of the code to an empty array)
+Save
+Pushes self into the all class variable.
+
+```
+class AustinSwingSyndicateDanceClasses::Party
+  attr_accessor :name, :description, :date
+  @@all =[]
+  
+  def initialize(name,description, date)
+    @name = name
+    @description = description
+    @date = date
+    save
+  end
+  
+  def self.all
+    AustinSwingSyndicateDanceClasses::Scraper.scrape_parties if @@all.empty?
+    @@all
+  end
+  
+  def save
+    @@all << self
+  end
+end
+```
+
+
+**Scraper.rb**
+
+This file is the scraper which is what takes the data from the webpage.
+
+It’s methods are as follows:
+Self.scrapre_parties
+Uses Nokogiri to parse the uri.
+Takes the css for “div.slide-content”.
+Uses each to retrieve the text for name, description, and date.
+
+```
+class AustinSwingSyndicateDanceClasses::Scraper
+  def self.scrape_parties
+    doc = Nokogiri::HTML(open("http://austinswingsyndicate.org/events/"))
+    parties = doc.css("div.slide-content")
+    parties.each do |n|
+        name = n.css("h3.slide-entry-title.entry-title a").text
+        description = n.css("div.slide-entry-excerpt.entry-content").text
+        date= n.next_element.css("div.slide-meta time").text
+        AustinSwingSyndicateDanceClasses::Party.new(name,description,date)
+    end
+  end
+end
+```
+
+**Verson.rb**
+This file defines the version of the gem.
+
+```
+module AustinSwingSyndicateDanceClasses
+  VERSION = "0.1.0"
+end
+```
+
+**Environment.rb**
+
+These are the files that configure the run-levels of my application.
+
+```
+require_relative "./austin_swing_syndicate_dance_classes/version"
+require_relative "./austin_swing_syndicate_dance_classes/cli"
+require_relative "./austin_swing_syndicate_dance_classes/party"
+require_relative "./austin_swing_syndicate_dance_classes/description"
+require_relative "./austin_swing_syndicate_dance_classes/scraper"
+
+require 'pry'
+require 'nokogiri'
+require 'open-uri'
+require 'colorize'
+
+module AustinSwingSyndicateDanceClasses
+  class Error < StandardError; end
+```
+  # Your code goes here...
+end
+
+**Austin-swing_syndicate_dance_classes.gemspec**
+I then wrote my gemspec files to attribute my RubyGem.
+If you want to check out my README.md, feel free to use the link to my code on GitHub below.
+
+```
+lib = File.expand_path("../lib", __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require "austin_swing_syndicate_dance_classes/version"
+Gem::Specification.new do |spec|
+  spec.name          = "austin_swing_syndicate_dance_clases"
+  spec.version       = AustinSwingSyndicateDanceClasses::VERSION
+  spec.authors       = ["'nathanielgcowan'"]
+  spec.email         = ["'nathaniel.g.cowan@gmail.com'"]
+  spec.summary       = %q{This is my short summary of my gemspec. I am writing one because I am supposed to do so. This is what is written down and what I know to put here.}
+  spec.description   = %q{This is the description of It is meant to help people in Austin meet others that want to learn swing dancing.}
+  spec.homepage      = "https://github.com/nathanielgcowan/learn-co-sandbox/tree/master/austin_swing_syndicate_dance_classes"
+  spec.license       = "MIT"
+"http://austinswingsyndicate.org/"
+  spec.files         = Dir.chdir(File.expand_path('..', __FILE__)) do
+    `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
+  end
+  spec.bindir        = "exe"
+  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
+  spec.require_paths = ["lib"]
+  spec.add_development_dependency "bundler", "~> 2.0"
+  spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency "pry"
+  spec.add_dependency "nokogiri"
+end
+```
+
+Here’s my Code on [GitHub](httphttps://github.com/nathanielgcowan/learn-co-sandbox://).
+Also, feel free to check out [Austin Swing Syndicate](hhttp://austinswingsyndicate.org/events/ttp://)’s Event Page.
+
+
+
+
+
 
