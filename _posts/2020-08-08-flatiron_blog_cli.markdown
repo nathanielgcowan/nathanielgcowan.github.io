@@ -6,8 +6,7 @@ permalink:  flatiron_blog_cli
 ---
 
 ![](https://unsplash.com/photos/XzuJuyYLjmE)
-
-Photo by Joshua Fuller on Unsplash
+<span>Photo by <a href="https://unsplash.com/@joshuafuller?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Joshua Fuller</a> on <a href="https://unsplash.com/?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span>
 
 After pondering different ideas about which website I would like to use for my CLI project I settled on Austin Swing Syndicate, a local organization that hosts classes year round.
 
