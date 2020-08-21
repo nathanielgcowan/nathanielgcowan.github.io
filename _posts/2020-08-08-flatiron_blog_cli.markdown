@@ -96,36 +96,29 @@ The following are my methods:
 /bullet the method
 /explain what it does
 * **Call**
-* 
 * Puts welcome message
 * Calls methods get_party, list_party, and show_answer
-* 
-* 
+  
 * **Get_party**
-* 
 * Establishes instance variable @parties set to the file AustinSwingSyndicateDanceClasses::Party.all
-* 
+
 * **List_party**
-* 
 * Puts a message with instructions.
 * Makes the my_statements array
 * Applies map to @parties
 * Push the name of a party into the my_statements array
 * Sorts the my_statements array
-* 
+
 * **Show_answer**
-* 
 * Takes a user’s input and makes it an integer.
 * Defines a valid input.
 * Show the correct answer once received valid input.
 * If invalid input, display error message then ask to try again.
-* 
+
 * **Valid_input**
-* 
 * Sets a valid input as an input integer less than the length of data and the integer is greater than zero.
-* 
+
 * **Give_info_for**
-* 
 * This method is the correct choice answer.
 * Puts “Awesome choice!”
 * Give the party description and date.
@@ -135,15 +128,7 @@ The following are my methods:
 class AustinSwingSyndicateDanceClasses::CLI
   
   def call
-    puts "
-   ____                          ___,                         
-  (|   \                        /   |              o          
-   |    |__,   _  _   __  _    |    |          ,_|_    _  _   
-  _|    /  |  / |/ | /   |/    |    |  |   |  / \| |  / |/ |  
- (/\___/\_/|_/  |  |_\___|__/   \__/\_/ \_/|_/ \/|_|_/  |  |_/
-                                                              
-                                                              
-"
+                                                         
     puts "Hello and welcome to Austin Swing Syndicate. We encourage others to learn how to swing dance."
     get_party
     list_party
