@@ -89,12 +89,12 @@ Then within my **gemspec** file I  required the use of pry, Nokogiri, and open-u
 Then I ran bundle install and my application was set up properly. It was now time to go ahead and start fleshing out the gem. I started first with my **cli.rb** file.
 
 **Cli.rb**
-
 This file is the meat and potatoes of the program. This is the file that displays the program’s logic and contains that code that takes the user input.
 
 The following are my methods:
 /bullet the method
 /explain what it does
+
 * **Call**
 * Puts welcome message
 * Calls methods get_party, list_party, and show_answer
@@ -186,26 +186,20 @@ end
 
 
 **Description.rb**
-
 This file sets the arguments for the descriptions of my program.
-
 The methods are as follows:
 
 * **Initialize**
-
 * Initializes arguments name and party
 * Calls add_to_party and save method
  
 * **Self.all**
- 
 * Defines the all class variable.(That is set to an empty array)
  
 * **Add_to_party**
- 
 * Pushes the new self description into the party instance variable unless it would be a duplicate.
  
 * **Save**
-
 * Pushes the given self in the all class variable.
 
 ```
@@ -238,7 +232,6 @@ end
 **Party.rb**
 
 This file sets the arguments and array for the individual classes.
-
 The methods are as follows:
 
 * **Initialize**
@@ -277,7 +270,6 @@ end
 
 
 **Scraper.rb**
-
 This file is the scraper which is what takes the data from the webpage.
 
 It’s methods are as follows:
@@ -303,7 +295,6 @@ end
 ```
 
 **Verson.rb**
-
 This file defines the version of the gem.
 
 ```
@@ -313,7 +304,6 @@ end
 ```
 
 **Environment.rb**
-
 These are the files that configure the run-levels of my application.
 
 ```
@@ -334,7 +324,6 @@ end
 ```
 
 **Austin-swing_syndicate_dance_classes.gemspec**
-
 I then wrote my gemspec files to attribute my RubyGem.
 If you want to check out my README.md, feel free to use the link to my code on GitHub below.
 
