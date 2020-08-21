@@ -192,24 +192,21 @@ This file sets the arguments for the descriptions of my program.
 The methods are as follows:
 
 * **Initialize**
-* 
+
 * Initializes arguments name and party
 * Calls add_to_party and save method
-* 
+ 
 * **Self.all**
-* 
+ 
 * Defines the all class variable.(That is set to an empty array)
-* 
+ 
 * **Add_to_party**
-* 
+ 
 * Pushes the new self description into the party instance variable unless it would be a duplicate.
-* 
+ 
 * **Save**
-* 
+
 * Pushes the given self in the all class variable.
-* 
-```
-```
 
 ```
 class AustinSwingSyndicateDanceClasses::Description
@@ -238,18 +235,20 @@ class AustinSwingSyndicateDanceClasses::Description
 end
 ```
 
-**
-Party.rb**
+**Party.rb**
 
 This file sets the arguments and array for the individual classes.
 
 The methods are as follows:
+
 * **Initialize**
 * Sets the instance variables name, description, and date.
 * Calls the save method
+
 * **Self.all**
 * Class variables take in the scrapers if the all class variable is empty.
 * Returns the all class variables(set at the top of the code to an empty array)
+
 * **Save**
 * Pushes self into the all class variable.
 
