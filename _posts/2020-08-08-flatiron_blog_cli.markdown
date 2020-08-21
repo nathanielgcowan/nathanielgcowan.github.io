@@ -30,7 +30,9 @@ I studied the layout and liked what I say so I started planning the layout for m
 
 After reading the instruction and following the video guide, I made the gem:
 
-`bundle gem austin_swing_syndicate_dance_classes`
+```
+bundle gem austin_swing_syndicate_dance_classes
+```
 
 
 This provided me with the base for my bin folder, lib folder, as other needed files for my Ruby gem.
