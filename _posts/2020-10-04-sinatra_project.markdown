@@ -1,220 +1,263 @@
 ---
 layout: post
 title:      "Sinatra Project"
-date:       2020-10-05 02:48:36 +0000
+date:       2020-10-04 22:48:37 -0400
 permalink:  sinatra_project
 ---
 
 
+My project is a MVC Sinatra application that utilizes ActiveRecord. There are two main models to my project: user and trucks. Their relationship consist of a user having many trucks, while a truck belongs to a user.
 
+Within the user account, anyone can sign up, sign in and log  out of their accounts securely due to the Bcrypt gem.
 
-After pondering different ideas I decided to make a project about cars. One of my favorite subjects.
+Their account is validated by email and password.
 
-The ojbective is to provide a CRUD, MVC app using Sinatra for fans of cars.
+Once logged on, users are able to create, edit, and delete any off their own trucks.
+To prevent people from editing someone else’s truck. I match the current session to the user_id associated with each truck. Therefore only the user that originally made the truck can make any changes to it.
 
+To prevent any bad data from populating in the system users must make the pattern for email within signup and not leave a field blank when making or editing a truck.
 
+I started with the corneal gem.
 
+```corneal new eight```
 
+Then I ran bundle install from my app’s directory
 
-Installation instructions was built with the corneal gem, which provides this directory structure.
+```cd eight```
 
-├── config.ru
-├── Gemfile
-├── Gemfile.lock
-├── Rakefile
-├── README
-├── app
-│   ├── controllers
-│   │   └── application_controller.rb
-|   |   └──create_posts_controller.rb
-|   |   └──drivers_controller.rb
-|   |   └──posts_controller.rb
-|   |   └──sessions_controller.rb
-|   |   └──users_controller.rb
-│   ├── models
-|   |   └──car.rb
-|   |   └──create_post.rb
-|   |   └──driver.rb
-|   |   └──session.rb
-|   |   └──user.rb
-|   |   └──vehicle.rb
-│   └── views
-│       ├── cars
-│       ├── create_posts
-│       ├── drivers
-│       ├── posts
-│       ├── sessions
-│       ├── users
-│       ├── vehicles
-│       ├── layout.erb
-│       └── welcome.erb
-├── config
-│   ├── initializers
-│   └── environment.rb
-├── db
-│   └── migrate
-│   └── schema.rb
-├── lib
-│   └── .gitkeep
-└── public
-|   ├── images
-|   ├── javascripts
-|   └── stylesheets
-|       └── main.css
-└── spec
-    ├── application_controller_spec.rb
-    └── spec_helper.rb
+```bundle install```
 
-Installation
-gem install cars-mode
+Then I started a server with shotgun.
 
-Contributors Guide
+``` shotgun ```
 
+I then generated my scaffolds.
 
-ApplicationController
-My application controoler is where I bring users to initially
+```corneal scaffold user email:string password_digest:string```
 
-I direct their sessions whether that are or not logged in with helper methods.
+```corneal scaffold truck model:string make:string user_id:integer```
 
+```corneal scaffold session```
 
+The resulting structure looked like this:
 
-def logged_in?
-    !!current_driver
-end
+```
+- app
+	- controllers
+		-application_controller.rb
+		-sessions_controller.rb
+		-trucks_controller.rb
+		-users_controller.rb
+	- models
+		-session.rb
+		-truck.rb
+		-user.rb
+	- views
+		-sessions
+			-edit.html.erb
+			-index.html.erb
+			-new.html.erb
+			-show.html.erb
+		-trucks
+			-edit.html.erb
+			-index.html.erb
+			-new.html.erb
+			-show.html.erb
+		-users
+			-edit.html.erb
+			-index.html.erb
+			-new.html.erb
+			-show.html.erb 
+```
 
-def current_driver
-    @current_driver ||= Driver.find_by(:email => session[:email]) if session[:email]
-end
+So I ran db:migrate and bundle install one more time and off I went to create the rest of my app.
 
-def login(email, password)
-    driver = Driver.find_by(:email => email)
-    if driver && driver.authenticate(password)
-    session[:email] = driver.email
-    else
-    redirect '/login'
+***Gemfile***
+```
+I require the following gems
+Gem ‘sinatra
+Gem ‘activerecord’
+Gem ‘sinatra-activerecord’
+Gem ‘rake’
+Gem ‘require-all’
+Gem ‘sqlite3’
+Gem ‘thin’
+Gem ‘shotgun’
+Gem ‘pry’
+Gem ‘bcrypt’
+Gem ‘tux’
+```
+
+Then I ran bundle install and started with my application_controller.rb file.
+
+**Application_controller.rb **
+
+In this file I enabled sessions and created my helper methods for user authentication.
+This is my following file.
+```
+require './config/environment'
+
+class ApplicationController < Sinatra::Base
+
+  configure do
+    set :public_folder, 'public'
+    set :views, 'app/views'
+    enable :sessions
+    set :session_secret, "carcollection"
+  end
+
+  get '/' do 
+    redirect "/trucks"
+  end
+
+  helpers do
+
+    def logged_in?
+      !!current_user
     end
+
+    def current_user
+      @current_user ||= User.find_by(:email => session[:email]) if session[:email]
+    end
+
+    def login(email, password)
+      user = User.find_by(:email => email)
+      if user && user.authenticate(password)
+        session[:email] = user.email
+        session[:id] = user.id
+        
+      else
+        redirect '/login'
+      end
+    end
+
+    def logout!
+      session.clear
+    end
+
+  end
+end```
+
+
+
+**Sessions_controller.rb 
+**
+```
+class SessionsController < ApplicationController
+
+  get "/login" do
+    erb :"/users/index.html"
+  end
+
+  # POST: /sessions
+  post "/sessions" do
+    login(params[:email], params[:password])
+    redirect '/trucks'
+  end
+
+  get '/logout' do
+    logout!
+    redirect '/trucks'
+  end
 end
-
-def logout!
-    session.clear
-end
+```
 
 
-my CreatePost controller is my CRUD for the customers to make their car forms. my helper methods make sure the right person is making changes.
 
-class CreatePostsController < ApplicationController
-  @car = CreatePost.new
-  @car.model =params[:model]
-  @car.year = params[:year]
-  @car.driver_id = params[:driver_id]
+**Trucks_controller.rb
+**
 
-  get '/' do
-    redirect "/create_posts"
+```
+class TrucksController < ApplicationController
+
+  get '/trucks' do 
+    @trucks = Truck.all 
+    erb :"trucks/index.html"
   end
 
-  GET: /index
-  get "/create_posts" do
-    "A list of publically available posts"
-    @cars = CreatePost.all
-    erb :"/create_posts/index.html"
-  end
-
-  new
-  get "/create_posts/new" do
-      erb :"/create_posts/new.html"
-  end
-
-  post "/create_posts" do
-      @car = CreatePost.create(:model => params[:model], :year => params[:year])
-      redirect "/create_posts/#{@car.id}"
-  end
-
-  show
-  get "/create_posts/:id" do
-    @car = CreatePost.find_by_id(params[:id])
-    erb :"/create_posts/show.html"
-  end
-
-  edit load edit form
-  get "/create_posts/:id/edit" do
-    if !logged_in?
+  get '/trucks/new' do
+    if current_user 
+      erb :"trucks/new.html" 
+    else 
       redirect "/login"
-    else
-      @car = CreatePost.find(params[:id])
-      erb :"/create_posts/edit.html"
     end
   end
 
-  patch "/create_posts/:id" do #edit action
-    @car = CreatePost.find_by_id(params[:id])
-    @car.model = params[:model]
-    @car.year = params[:year]
-    @car.save
-    redirect to "/create_posts/#{@car.id}"
+  post '/trucks' do 
+    #{"model"=>"model of truck", "make"=>"make of truck"}
+    @truck = Truck.new
+    @truck.model = params[:model]
+    @truck.make = params[:make]
+    # this is already created
+    @truck.user_id = session[:id]
+    if @truck.save
+      redirect "/trucks/#{@truck.id}"
+    else
+      erb :"trucks/new.html"
+    end
+  end 
+
+  get '/trucks/:id' do 
+    @truck = Truck.find_by_id(params[:id])
+    erb :"trucks/show.html"
   end
 
-  destroy
-  delete "/create_posts/:id" do #delete action
-    if !logged_in?
-      redirect "/login"
+  get '/trucks/:id/edit' do 
+    @truck = Truck.find(params[:id])
+    @truck.model = params[:model]
+    @truck.make = params[:make]
+
+    if session[:id] == @truck.user_id
+      erb :"trucks/edit.html"
     else
-      @car = CreatePost.find_by_id(params[:id])
-      @car.model = params[:model]
-      @car.year = params[:year]
-      @car.id = params[:id]
-      @car.delete
-      redirect to "/create_posts"
+      redirect "/trucks"
     end
+  end
+
+  patch '/trucks/:id' do
+    @truck = Truck.find(params[:id])
+    @truck.model = params[:model]
+    @truck.make = params[:make]
+    @truck.user_id = session[:id]
+    @truck.save 
+
+    redirect "/trucks/#{@truck.id}"
+  end
+
+  delete '/trucks/:id' do
+    @truck = Truck.find(params[:id])
+    @truck.destroy
+
+    redirect '/trucks'
   end
 end
+```
 
 
-My drivers_controller is my users_controller. the most notable part about the controller is establishing new users.
 
-  POST: /drivers
-  post "/drivers" do
-    @driver = Driver.new
-    @driver.email =params[:email]
-    @driver.password = params[:password]
-    if @driver.save
-      redirect '/login'
-    else
-      erb :"drivers/new.html"
-    end
-  end
-
-
-My create_post method belongs to my driver method.
-
-My driver.rb has_many create_post and secure passwords.
-
-My views>create_posts hold the majoritory of my forms to be edited by the user.
-
-My views>sessions. hold the majority of my user authentication files
+# Models
+**User.rb** 
+```
+This file determines this encrypted password, validates for a valid information, and establish the has many relationship with trucks
+class User < ActiveRecord::Base
+    has_secure_password
+    validates :email, :presence => true
+    validates :password_digest, :presence => true
+    has_many :trucks
+end
+```
 
 
-My confir.ru file is allows for edits because I have 
+**Truck.rb**
+```
+This file validates information and establishes the relationship with users.
+class Truck < ActiveRecord::Base
+    belongs_to :user
+    validates :model, :presence => true
+    validates :make, :presence => true
+end
+```
 
-use Rack::MethodOverride
 
-before any controller
-
-and I ...
-
-run ApplicationController
-
-last.
-
-download repo from GitHub
-https://github.com/nathanielgcowan/cars-mode
-
-cd cars-mode
-bundle install
-
-code . [Enter]
-
-you should now be 
-
-Here is a link to the license of my code
-https://github.com/nathanielgcowan/cars-mode/blob/main/LICENSE
+[Here is my code on GitHub](https://github.com/nathanielgcowan/trucks_draft). Thank you for reading
 
