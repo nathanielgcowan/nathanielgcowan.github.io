@@ -6,7 +6,7 @@ permalink:  how_to_set_up_authentication_with_bcrypt
 ---
 
 
-![](http://fromzerotocode.com/2015/12/28/gem-bcrypt-on-windows)
+![](http://www.fromzerotocode.com/2015/12/28/gem-bcrypt-on-windows)
 
 Many people despite warnings will reuse passwords for different accounts. This means that if your data is breached, someone’s passwords for their bank account could potentially be exposed. Therefore, we as developers need to go the extra mile to prevent this from happening.
 
