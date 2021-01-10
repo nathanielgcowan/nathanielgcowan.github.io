@@ -18,8 +18,7 @@ The one drawback of such a large gem is that it slows down your application. It'
 
 Hashes are numbers computed by feeding to a hash function. Hash functions have the property that they will always produce the same number given the same input.
 
-For example, you can save a password by saying ```User.password = *new_password*.
-```
+For example, you can save a password by saying ```User.password = *new_password*.```
 
 BCrypt hashes similar strings to different values. Therefore making it rather difficult to decode and hack an account. BCrypt also adds increased security by salting hashes.
 
@@ -35,6 +34,7 @@ The following is how to implement BCrypt
 
 1. Add the ‘bcrypt’ gem to your Gemfile.
 2. Add password_digest to a column in your migration
+
 ```
 Class CreateUsers < ActiveRecord::Migration[5.1]
 	Def up
