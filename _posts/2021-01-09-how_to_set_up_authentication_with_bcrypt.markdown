@@ -13,6 +13,7 @@ Many people despite warnings will reuse passwords for different accounts. This m
 This is why we use BCrypt. A gem to hash passwords to keep that plain text out of view. Once salted and hashed, it’s very difficult to decode another’s password.
 
 **First, Let’s Talk About Hashes**
+
 Hashes are a numbers computed by feeding to a hash function. Hash functions have the property that they will always produce the same number given the same input.
 
 For example, you can save a password by saying 
