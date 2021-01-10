@@ -25,14 +25,17 @@ BCrypt hashes similar strings to different values. Therefore making it rather di
 Well, a salt is a random string prepended to the password before hashing it. The string is juxtaposed to the passwords, stored in plain text. This makes the act of hacking rather difficult to perform. Even if a hacker can crack the bcrypt code, most likely they won’t know the string you salted on all of your passwords.
 
 **BCrypt is rather slow**
+
 The one drawback of such a large gem is that it slows down your application. It's designed this way to make it harder for hackers to decode your database, but you will have to accept a slower log in speed to your application.
 
 
 **Takeway**
+
 Overall, BCrypt is a really good choice for passwords.Even if a hacker gets a hold of your database they are going to struggle with turning a hash back into a string.
 Even if they ran a list of common words from Webster’s dictionary, it would take them a considerable amount of time to decode anything at all.
 
 **How to add BCrypt to Rails**
+
 Rails wants developers to be able to easily write code that people trust, so that made Bcrypt easy to install.
 
 The following is how to add the gem to your application
