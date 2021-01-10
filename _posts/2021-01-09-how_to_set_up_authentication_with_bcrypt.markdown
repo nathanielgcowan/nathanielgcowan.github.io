@@ -18,7 +18,7 @@ Hashes are a numbers computed by feeding to a hash function. Hash functions have
 For example, you can save a password by saying 
 	User.password = *new_password*.
 
-BCrypt hashes similar strings to different values. Therefore making it rather difficult to decode and hack an account. BCrypt also adds increased security by salting hashes/
+BCrypt hashes similar strings to different values. Therefore making it rather difficult to decode and hack an account. BCrypt also adds increased security by salting hashes
 
 **What is a salted hash you ask?**
 
