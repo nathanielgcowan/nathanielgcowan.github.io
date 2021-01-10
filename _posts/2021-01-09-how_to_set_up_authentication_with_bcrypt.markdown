@@ -24,7 +24,7 @@ For example, you can save a password by saying
 	User.password = *new_password*.
 ```
 
-BCrypt hashes similar strings to different values. Therefore making it rather difficult to decode and hack an account. BCrypt also adds increased security by salting hashes/
+BCrypt hashes similar strings to different values. Therefore making it rather difficult to decode and hack an account. BCrypt also adds increased security by salting hashes.
 
 **What Is a Salted Hash You Ask?**
 
@@ -35,8 +35,9 @@ Well, a salt is a random string prepended to the password before hashing it. The
 BCrypt will store a salted hash in a column called ```password_digest```. Which, pretty much means a salted hash will not be decoded.
 
 The following is how to implement BCrypt
-Add the ‘bcrypt’ gem to your Gemfile.
-Add password_digest to a column in your migration
+
+1. Add the ‘bcrypt’ gem to your Gemfile.
+2. Add password_digest to a column in your migration
 ```
 Class CreateUsers < ActiveRecord::Migration[5.1]
 	Def up
@@ -74,9 +75,10 @@ Post “/login” do
 		Redirect “/failure”
 	End
 end
+```
 
 Tay-dah!! You know know how to set up authentication with BCrypt
-```
+
 
 **But How Does the Authenticate Method Work Exactly?**
 
