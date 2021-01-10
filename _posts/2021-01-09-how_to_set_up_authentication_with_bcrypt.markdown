@@ -26,7 +26,7 @@ BCrypt hashes similar strings to different values. Therefore making it rather di
 
 Well, a salt is a random string prepended to the password before hashing it. The string is juxtaposed to the passwords, stored in plain text. This makes the act of hacking rather difficult to perform. Even if a hacker can crack the bcrypt code, most likely they won’t know the string you salted on all of your passwords.
 
-### But How Does BCrypt Use a Salted Hash
+### But How Does BCrypt Use a Salted Hash?
 
 BCrypt will store a salted hash in a column called ```password_digest```. Which, pretty much means a salted hash will not be decoded.
 
