@@ -19,7 +19,8 @@ The one drawback of such a large gem is that it slows down your application. It'
 Hashes are numbers computed by feeding to a hash function. Hash functions have the property that they will always produce the same number given the same input.
 
 For example, you can save a password by saying 
-	```
+
+```
 	User.password = *new_password*.
 ```
 
