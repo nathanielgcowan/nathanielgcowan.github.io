@@ -52,7 +52,7 @@ Comfirm the **password** and the **password_confirmation** are a match
 
 ### ActiveRecord’s has_secure_password
 
-The has_secure_password macro when called creates a method for you in conjunction with bcrypt and gives us all of those abilities in a secure way that doens’t store the plain text password in the database.
+The ```has_secure_password``` macro when called creates a method for you in conjunction with bcrypt and gives us all of those abilities in a secure way that doens’t store the plain text password in the database.
 
 Below is how to use it.
 ```
@@ -60,7 +60,7 @@ Class Use < ActiveRecord::Base
 	Has_secure_password
 End
 ```
-This will tell Ruby to add the ```authenticate``` method to our program that will run in the background of our program.(This is an example of metaprogramming)
+This will tell Ruby to add the ```authenticate``` method to our program that will run in the background of our program.(This is an example of *metaprogramming*)
 
 ```
 Post “/login” do
@@ -87,7 +87,7 @@ The authenticate method takes a string, turns it into a salted hash, compares th
 Overall, BCrypt is a really good choice for passwords.Even if a hacker gets a hold of your database they are going to struggle with turning a hash back into a string.
 Even if they ran a list of common words from Webster’s dictionary, it would take them a considerable amount of time to decode anything at all.
 
-To set up this authentication method with bcrypt, make sure to implement the gem within your Gemfile, add the password_digest column to your migration, and apply ActiveRecord’s has_secure_password,to your model
+To set up this ```authentication``` method with bcrypt, make sure to implement the gem within your Gemfile, add the ```password_digest``` column to your migration, and apply ActiveRecord’s ```has_secure_password```,to your model
 
 
 
