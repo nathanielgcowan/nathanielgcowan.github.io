@@ -1,12 +1,12 @@
 ---
 layout: post
 title:      "The Different Methods That ActiveRecord Provides Us"
-date:       2021-03-12 14:00:24 +0000
+date:       2021-03-12 09:00:24 -0500
 permalink:  the_different_methods_that_activerecord_provides_us
 ---
 
 
-The Active Record Query Interface is a powerful tool in Ruby. Instead of wasting time using long SQL commands, Rails users can take advantage of this gem to carry out the same operations. In this article ,we are going to take about three fundamental Active Record methods provides us, find, create, update, and go over why they are important tools you should keep in your toolbox.
+The Active Record Query Interface is a powerful tool in Ruby. Instead of wasting time using long SQL commands, Rails users can take advantage of this gem to carry out the same operations. In this article ,we are going to take about three fundamental methods Active Record provides us (find, create, update) and go over why they are important tools for you to have.
 
 The find method in Rails is commonly used in the controller. It’s widely used for returning record values by id.
 
@@ -17,9 +17,11 @@ This can be done in four ways: find by id, find all, find first, and find last.
 ## Find by id
 	The find method can be called with a single id or an array of ids. Which you can return an array of values and find the return everything with those id values.
 find(id)
+```
 2.6.1 :007 > User.find(1)
   User Load (0.8ms)  SELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?  [["id", 1], ["LIMIT", 1]]
  => #<User id: 1, email: "nathaniel@flatiron.com", created_at: "2021-03-04 04:32:36", updated_at: "2021-03-04 04:32:36", provider: "", uid: "">
+```
 
 
 ### Find All
@@ -34,8 +36,8 @@ find(:all)
 
 ### Find First
 Find with :first returns the first match. This can be abbreviated to just first.
-Find with :first returns the first match.
 ```
+Find with :first returns the first match.
 2.6.1 :009 > User.first
   User Load (0.8ms)  SELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?  [["LIMIT", 1]]
  => #<User id: 1, email: "nathaniel@flatiron.com", created_at: "2021-03-04 04:32:36", updated_at: "2021-03-04 04:32:36", provider: "", uid: "">
@@ -52,7 +54,7 @@ Find with :last returns the last match. This can be abbreviated to just last.
 
 
 ## Create
-Active Record objects can be  created from a hash,a block, or have their attributes manually set after creation. Create is special in that it will return an object and save it to the database, if validations pass. The resulting object is returned whether the object was saved successfully to the database or not.
+Active Record objects can be created from a hash,a block, or have their attributes manually set after creation. Create is special in that it will return an object and save it to the database, if validations pass. The resulting object is returned whether the object was saved successfully to the database or not.
 
 The attributes parameter can be either a Hash or an Array of Hashes. These Hashes describe the attributes on the objects that are to be created.
 
@@ -74,7 +76,6 @@ User.create([{ email: 'one@email.com'}, {email: 'two@email.com' }]) do |user|
 	User.is_admin = false
 End
 ```
-
 
 ## Update
 This command is used to update the object(or multiple objects) and save them to the database, if validations pass. The resulting object is returned whether the object was saved successfully to the database or not.
