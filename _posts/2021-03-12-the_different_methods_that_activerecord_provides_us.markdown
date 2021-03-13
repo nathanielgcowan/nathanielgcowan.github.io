@@ -36,8 +36,8 @@ find(:all)
 
 ### Find First
 Find with :first returns the first match. This can be abbreviated to just first.
-```
 Find with :first returns the first match.
+```
 2.6.1 :009 > User.first
   User Load (0.8ms)  SELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?  [["LIMIT", 1]]
  => #<User id: 1, email: "nathaniel@flatiron.com", created_at: "2021-03-04 04:32:36", updated_at: "2021-03-04 04:32:36", provider: "", uid: "">
@@ -77,6 +77,7 @@ User.create([{ email: 'one@email.com'}, {email: 'two@email.com' }]) do |user|
 End
 ```
 
+
 ## Update
 This command is used to update the object(or multiple objects) and save them to the database, if validations pass. The resulting object is returned whether the object was saved successfully to the database or not.
 
@@ -94,7 +95,6 @@ User.update(user.keys, user.values)
 User = User.where(email: "nathaniel@flatiron.com")
 user.update(email: "nathaniel@flatironschool.com")
 ```
-
 
 Overall, ActiveRecord is a very powerful gem that can help us easily find data in our database. The find method is very flexible in the data it returns you, the create method returns then saves an object to your database, and update is able to patch existing objects. It would behoove every Ruby programmer to keep these methods in their back pocket because they make your code easier to both read and write.
 
